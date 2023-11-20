@@ -26,15 +26,17 @@ type consistenciaServer struct {
 	pb.UnimplementedConsistenciaServer
 }
 
-func (s *fulcrumServer) AgregarBase(ctx context.Context, base *pb.Base) (*pb.Recepcion, error) {
+func (s *fulcrumServer) AgregarBase(ctx context.Context, base *pb.Base) (*pb.Vector, error) {
 	log.Printf("- Comando recibido: AgregarBase %s %s %s \n", base.Sector, base.Base, base.Soldados)
 
 	agregarDato(base.Sector, base.Base, base.Soldados)
 
 	timeVector[fulcrumId]++
 
-	return &pb.Recepcion{
-		Ok: "OK",
+	return &pb.Vector{
+		S1: int32(timeVector[0]),
+		S2: int32(timeVector[1]),
+		S3: int32(timeVector[2]),
 	}, nil
 }
 
@@ -58,15 +60,17 @@ func agregarDato(sector string, base string, soldados string) {
 	agregarLog(logLine)
 }
 
-func (s *fulcrumServer) RenombrarBase(ctx context.Context, nuevaBase *pb.BaseModificada) (*pb.Recepcion, error) {
+func (s *fulcrumServer) RenombrarBase(ctx context.Context, nuevaBase *pb.BaseModificada) (*pb.Vector, error) {
 	log.Printf("- Comando recibido: RenombrarBase %s %s %s \n", nuevaBase.Sector, nuevaBase.Base, nuevaBase.ActualizacionBase)
 
 	modificarBase(nuevaBase.Sector, nuevaBase.Base, nuevaBase.ActualizacionBase)
 
 	timeVector[fulcrumId]++
 
-	return &pb.Recepcion{
-		Ok: "OK",
+	return &pb.Vector{
+		S1: int32(timeVector[0]),
+		S2: int32(timeVector[1]),
+		S3: int32(timeVector[2]),
 	}, nil
 }
 
@@ -126,15 +130,17 @@ func modificarBase(sector string, base string, nuevaBase string) {
 	agregarLog(logLine)
 }
 
-func (s *fulcrumServer) ActualizarValor(ctx context.Context, actualizar *pb.ActualizarSoldados) (*pb.Recepcion, error) {
+func (s *fulcrumServer) ActualizarValor(ctx context.Context, actualizar *pb.ActualizarSoldados) (*pb.Vector, error) {
 	log.Printf("Comando recibido: ActualizarValor  %s %s %s \n", actualizar.Sector, actualizar.Base, actualizar.ActualizacionSoldados)
 
 	actualizarCantidad(actualizar.Sector, actualizar.Base, actualizar.ActualizacionSoldados)
 
 	timeVector[fulcrumId]++
 
-	return &pb.Recepcion{
-		Ok: "OK",
+	return &pb.Vector{
+		S1: int32(timeVector[0]),
+		S2: int32(timeVector[1]),
+		S3: int32(timeVector[2]),
 	}, nil
 }
 
@@ -193,15 +199,17 @@ func actualizarCantidad(sector string, base string, soldados string) {
 	agregarLog(logLine)
 }
 
-func (s *fulcrumServer) BorrarBase(ctx context.Context, borrar *pb.Base) (*pb.Recepcion, error) {
+func (s *fulcrumServer) BorrarBase(ctx context.Context, borrar *pb.Base) (*pb.Vector, error) {
 	log.Printf("Comando recibido: BorrarBase  %s %s \n", borrar.Base, borrar.Sector)
 
 	borrarDato(borrar.Sector, borrar.Base)
 
 	timeVector[fulcrumId]++
 
-	return &pb.Recepcion{
-		Ok: "OK",
+	return &pb.Vector{
+		S1: int32(timeVector[0]),
+		S2: int32(timeVector[1]),
+		S3: int32(timeVector[2]),
 	}, nil
 }
 

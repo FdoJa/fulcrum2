@@ -29,10 +29,10 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type InformantesClient interface {
-	AgregarBase(ctx context.Context, in *Base, opts ...grpc.CallOption) (*Recepcion, error)
-	RenombrarBase(ctx context.Context, in *BaseModificada, opts ...grpc.CallOption) (*Recepcion, error)
-	ActualizarValor(ctx context.Context, in *ActualizarSoldados, opts ...grpc.CallOption) (*Recepcion, error)
-	BorrarBase(ctx context.Context, in *Base, opts ...grpc.CallOption) (*Recepcion, error)
+	AgregarBase(ctx context.Context, in *Base, opts ...grpc.CallOption) (*Vector, error)
+	RenombrarBase(ctx context.Context, in *BaseModificada, opts ...grpc.CallOption) (*Vector, error)
+	ActualizarValor(ctx context.Context, in *ActualizarSoldados, opts ...grpc.CallOption) (*Vector, error)
+	BorrarBase(ctx context.Context, in *Base, opts ...grpc.CallOption) (*Vector, error)
 }
 
 type informantesClient struct {
@@ -43,8 +43,8 @@ func NewInformantesClient(cc grpc.ClientConnInterface) InformantesClient {
 	return &informantesClient{cc}
 }
 
-func (c *informantesClient) AgregarBase(ctx context.Context, in *Base, opts ...grpc.CallOption) (*Recepcion, error) {
-	out := new(Recepcion)
+func (c *informantesClient) AgregarBase(ctx context.Context, in *Base, opts ...grpc.CallOption) (*Vector, error) {
+	out := new(Vector)
 	err := c.cc.Invoke(ctx, Informantes_AgregarBase_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -52,8 +52,8 @@ func (c *informantesClient) AgregarBase(ctx context.Context, in *Base, opts ...g
 	return out, nil
 }
 
-func (c *informantesClient) RenombrarBase(ctx context.Context, in *BaseModificada, opts ...grpc.CallOption) (*Recepcion, error) {
-	out := new(Recepcion)
+func (c *informantesClient) RenombrarBase(ctx context.Context, in *BaseModificada, opts ...grpc.CallOption) (*Vector, error) {
+	out := new(Vector)
 	err := c.cc.Invoke(ctx, Informantes_RenombrarBase_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -61,8 +61,8 @@ func (c *informantesClient) RenombrarBase(ctx context.Context, in *BaseModificad
 	return out, nil
 }
 
-func (c *informantesClient) ActualizarValor(ctx context.Context, in *ActualizarSoldados, opts ...grpc.CallOption) (*Recepcion, error) {
-	out := new(Recepcion)
+func (c *informantesClient) ActualizarValor(ctx context.Context, in *ActualizarSoldados, opts ...grpc.CallOption) (*Vector, error) {
+	out := new(Vector)
 	err := c.cc.Invoke(ctx, Informantes_ActualizarValor_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -70,8 +70,8 @@ func (c *informantesClient) ActualizarValor(ctx context.Context, in *ActualizarS
 	return out, nil
 }
 
-func (c *informantesClient) BorrarBase(ctx context.Context, in *Base, opts ...grpc.CallOption) (*Recepcion, error) {
-	out := new(Recepcion)
+func (c *informantesClient) BorrarBase(ctx context.Context, in *Base, opts ...grpc.CallOption) (*Vector, error) {
+	out := new(Vector)
 	err := c.cc.Invoke(ctx, Informantes_BorrarBase_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -83,10 +83,10 @@ func (c *informantesClient) BorrarBase(ctx context.Context, in *Base, opts ...gr
 // All implementations must embed UnimplementedInformantesServer
 // for forward compatibility
 type InformantesServer interface {
-	AgregarBase(context.Context, *Base) (*Recepcion, error)
-	RenombrarBase(context.Context, *BaseModificada) (*Recepcion, error)
-	ActualizarValor(context.Context, *ActualizarSoldados) (*Recepcion, error)
-	BorrarBase(context.Context, *Base) (*Recepcion, error)
+	AgregarBase(context.Context, *Base) (*Vector, error)
+	RenombrarBase(context.Context, *BaseModificada) (*Vector, error)
+	ActualizarValor(context.Context, *ActualizarSoldados) (*Vector, error)
+	BorrarBase(context.Context, *Base) (*Vector, error)
 	mustEmbedUnimplementedInformantesServer()
 }
 
@@ -94,16 +94,16 @@ type InformantesServer interface {
 type UnimplementedInformantesServer struct {
 }
 
-func (UnimplementedInformantesServer) AgregarBase(context.Context, *Base) (*Recepcion, error) {
+func (UnimplementedInformantesServer) AgregarBase(context.Context, *Base) (*Vector, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AgregarBase not implemented")
 }
-func (UnimplementedInformantesServer) RenombrarBase(context.Context, *BaseModificada) (*Recepcion, error) {
+func (UnimplementedInformantesServer) RenombrarBase(context.Context, *BaseModificada) (*Vector, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RenombrarBase not implemented")
 }
-func (UnimplementedInformantesServer) ActualizarValor(context.Context, *ActualizarSoldados) (*Recepcion, error) {
+func (UnimplementedInformantesServer) ActualizarValor(context.Context, *ActualizarSoldados) (*Vector, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ActualizarValor not implemented")
 }
-func (UnimplementedInformantesServer) BorrarBase(context.Context, *Base) (*Recepcion, error) {
+func (UnimplementedInformantesServer) BorrarBase(context.Context, *Base) (*Vector, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method BorrarBase not implemented")
 }
 func (UnimplementedInformantesServer) mustEmbedUnimplementedInformantesServer() {}
